@@ -1,0 +1,15 @@
+[package]
+name = "ega"
+version = "0.0.1"
+edition = "2023"
+
+[[bench]]
+name = "relict"
+harness = false
+
+[dev-dependencies]
+criterion = { version = "0.4", features = ["html_reports"] }
+
+[dependencies]
+rand = "0.8.5"
+rand_distr = "0.4.3"
