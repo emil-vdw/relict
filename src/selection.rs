@@ -14,9 +14,8 @@ pub enum SelectionCount {
 }
 
 pub struct TournamentSelection {
-    // Tournament size
     pub tournament_size: TournamentSize,
-    pub probability: f64,
+    pub winner_probability: f64,
     pub remove_winners: bool,
     pub selection_count: SelectionCount,
 }
@@ -24,13 +23,13 @@ pub struct TournamentSelection {
 impl TournamentSelection {
     pub fn new(
         tournament_size: TournamentSize,
-        probability: f64,
+        winner_probability: f64,
         remove_winners: bool,
         selection_count: SelectionCount,
     ) -> Self {
         Self {
             tournament_size,
-            probability,
+            winner_probability,
             remove_winners,
             selection_count,
         }
@@ -82,7 +81,7 @@ impl<const CS: usize, const GS: usize> Selection<CS, GS> for TournamentSelection
                 (population.len() as f64 * population_ratio).ceil() as usize
             }
         };
-        let winner_dist = Geometric::new(self.probability).unwrap();
+        let winner_dist = Geometric::new(self.winner_probability).unwrap();
         let mut winners: Vec<T> = Vec::with_capacity(selected_population_size);
 
         while winners.len() < selected_population_size || population.is_empty() {
